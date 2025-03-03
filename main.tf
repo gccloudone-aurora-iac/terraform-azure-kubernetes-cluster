@@ -67,6 +67,9 @@ resource "azurerm_kubernetes_cluster" "this" {
   azure_policy_enabled             = false
   http_application_routing_enabled = false
 
+  # Custom CA
+  custom_ca_trust_certificates_base64 = [var.custom_ca]
+
   # Identity / RBAC
   identity {
     type         = "UserAssigned"
