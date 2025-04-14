@@ -43,10 +43,10 @@ resource "random_password" "windows_password" {
 # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/kubernetes_cluster
 #
 resource "azurerm_kubernetes_cluster" "this" {
-  name                = module.azure_resource_prefixes.kubernetes_service_prefix
+  name                = module.azure_resource_names.kubernetes_service_name
   resource_group_name = var.resource_group_name
   location            = var.azure_resource_attributes.location
-  node_resource_group = var.node_resource_group_name == null ? "${module.azure_resource_prefixes.resource_group_prefix}-managed-aks" : var.node_resource_group_name
+  node_resource_group = var.node_resource_group_name == null ? "${module.azure_resource_names.resource_group_name}-managed-aks" : var.node_resource_group_name
 
   # Versioning
   kubernetes_version        = var.kubernetes_version
