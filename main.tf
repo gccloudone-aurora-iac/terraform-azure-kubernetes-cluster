@@ -50,8 +50,8 @@ resource "azurerm_kubernetes_cluster" "this" {
 
   # Versioning
   kubernetes_version        = var.kubernetes_version
-  automatic_channel_upgrade = var.automatic_channel_upgrade != "none" ? var.automatic_channel_upgrade : null
-  node_os_channel_upgrade   = var.node_os_channel_upgrade
+  automatic_upgrade_channel = var.automatic_channel_upgrade != "none" ? var.automatic_channel_upgrade : null
+  node_os_upgrade_channel   = var.node_os_channel_upgrade
 
   # API Server
   sku_tier                   = var.sku_tier
@@ -68,7 +68,8 @@ resource "azurerm_kubernetes_cluster" "this" {
   http_application_routing_enabled = false
 
   # Custom CA
-  custom_ca_trust_certificates_base64 = [var.custom_ca]
+  # Terraform removed this and caused breaking change needs to be done manually
+  # custom_ca_trust_certificates_base64 = [var.custom_ca]
 
   # Identity / RBAC
   identity {
@@ -80,9 +81,10 @@ resource "azurerm_kubernetes_cluster" "this" {
     for_each = var.api_server != null ? ["api_server"] : []
 
     content {
-      authorized_ip_ranges     = var.api_server.authorized_ip_ranges
-      subnet_id                = var.api_server.subnet_id
-      vnet_integration_enabled = var.api_server.vnet_integration_enabled
+      authorized_ip_ranges = var.api_server.authorized_ip_ranges
+      # https://github.com/hashicorp/terraform-provider-azurerm/issues/27640
+      # subnet_id                = var.api_server.subnet_id
+      # vnet_integration_enabled = var.api_server.vnet_integration_enabled
     }
   }
 
@@ -95,7 +97,7 @@ resource "azurerm_kubernetes_cluster" "this" {
   role_based_access_control_enabled = true
 
   azure_active_directory_role_based_access_control {
-    managed                = true
+    azure_rbac_enabled     = true
     admin_group_object_ids = var.admin_group_object_ids
   }
   local_account_disabled = var.local_account_disabled
@@ -155,23 +157,23 @@ resource "azurerm_kubernetes_cluster" "this" {
     orchestrator_version        = var.default_node_pool.kubernetes_version != null ? var.default_node_pool.kubernetes_version : var.kubernetes_version
     zones                       = var.default_node_pool.availability_zones
 
-    node_count          = !var.default_node_pool.enable_auto_scaling ? var.default_node_pool.node_count : null
-    enable_auto_scaling = var.default_node_pool.enable_auto_scaling
-    min_count           = var.default_node_pool.enable_auto_scaling ? var.default_node_pool.auto_scaling_min_nodes : null
-    max_count           = var.default_node_pool.enable_auto_scaling ? var.default_node_pool.auto_scaling_max_nodes : null
+    node_count           = !var.default_node_pool.enable_auto_scaling ? var.default_node_pool.node_count : null
+    auto_scaling_enabled = var.default_node_pool.enable_auto_scaling
+    min_count            = var.default_node_pool.enable_auto_scaling ? var.default_node_pool.auto_scaling_min_nodes : null
+    max_count            = var.default_node_pool.enable_auto_scaling ? var.default_node_pool.auto_scaling_max_nodes : null
 
     # Node configuration
-    vm_size               = var.default_node_pool.vm_size
-    node_labels           = var.default_node_pool.node_labels
-    type                  = "VirtualMachineScaleSets"
-    enable_node_public_ip = false
-    max_pods              = var.default_node_pool.max_pods
+    vm_size                = var.default_node_pool.vm_size
+    node_labels            = var.default_node_pool.node_labels
+    type                   = "VirtualMachineScaleSets"
+    node_public_ip_enabled = false
+    max_pods               = var.default_node_pool.max_pods
 
     # Disk configuration
-    enable_host_encryption = var.default_node_pool.enable_host_encryption
-    os_disk_size_gb        = var.default_node_pool.os_disk_size_gb
-    os_disk_type           = var.default_node_pool.os_disk_type
-    kubelet_disk_type      = "OS"
+    host_encryption_enabled = var.default_node_pool.enable_host_encryption
+    os_disk_size_gb         = var.default_node_pool.os_disk_size_gb
+    os_disk_type            = var.default_node_pool.os_disk_type
+    kubelet_disk_type       = "OS"
 
     # Only run critical workloads (AKS managed) when enabled
     only_critical_addons_enabled = var.default_node_pool.only_critical_addons
@@ -263,10 +265,9 @@ resource "azurerm_kubernetes_cluster" "this" {
   }
 
   # Addons
-  run_command_enabled           = false
-  public_network_access_enabled = false
-  oidc_issuer_enabled           = var.oidc_issuer.enabled
-  workload_identity_enabled     = var.oidc_issuer.workload_identity_enabled
+  run_command_enabled       = false
+  oidc_issuer_enabled       = var.oidc_issuer.enabled
+  workload_identity_enabled = var.oidc_issuer.workload_identity_enabled
 
   tags = local.tags
 }
