@@ -68,8 +68,7 @@ resource "azurerm_kubernetes_cluster" "this" {
   http_application_routing_enabled = false
 
   # Custom CA
-  # Terraform removed this and caused breaking change needs to be done manually
-  # custom_ca_trust_certificates_base64 = [var.custom_ca]
+  custom_ca_trust_certificates_base64 = [var.custom_ca]
 
   # Identity / RBAC
   identity {
