@@ -158,7 +158,7 @@ variable "sku_tier" {
 variable "support_plan" {
   description = "Specifies the support plan which should be used for this Kubernetes Cluster. Possible values are KubernetesOfficial and AKSLongTermSupport. Defaults to KubernetesOfficial"
   type        = string
-  default     = "AKSLongTermSupport"
+  default     = "KubernetesOfficial"
 }
 
 #######################
