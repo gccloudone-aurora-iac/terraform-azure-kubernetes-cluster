@@ -81,10 +81,9 @@ resource "azurerm_kubernetes_cluster" "this" {
     for_each = var.api_server != null ? ["api_server"] : []
 
     content {
-      authorized_ip_ranges = var.api_server.authorized_ip_ranges
-      # https://github.com/hashicorp/terraform-provider-azurerm/issues/27640
-      # subnet_id                = var.api_server.subnet_id
-      # vnet_integration_enabled = var.api_server.vnet_integration_enabled
+      authorized_ip_ranges                = var.api_server.authorized_ip_ranges
+      subnet_id                           = var.api_server.subnet_id
+      virtual_network_integration_enabled = var.api_server.vnet_integration_enabled
     }
   }
 
