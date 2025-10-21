@@ -82,7 +82,7 @@ resource "azurerm_kubernetes_cluster" "this" {
 
     content {
       authorized_ip_ranges                = var.api_server.authorized_ip_ranges
-      subnet_id                           = var.api_server.subnet_id
+      subnet_id                           = var.api_server.vnet_integration_enabled ? var.api_server.subnet_id : null
       virtual_network_integration_enabled = var.api_server.vnet_integration_enabled
     }
   }
