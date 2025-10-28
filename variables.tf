@@ -150,9 +150,9 @@ variable "dns_prefix_private_cluster" {
 }
 
 variable "sku_tier" {
-  description = "SKU Tier of the cluster (\"Premium\" is preferred). The SKU determines the cluster's uptime SLA. Refer to https://learn.microsoft.com/en-us/azure/aks/uptime-sla for more information."
+  description = "SKU Tier of the cluster (\"Standard\" is preferred). The SKU determines the cluster's uptime SLA. Refer to https://learn.microsoft.com/en-us/azure/aks/uptime-sla for more information."
   type        = string
-  default     = "Premium"
+  default     = "Standard"
 }
 
 variable "support_plan" {
