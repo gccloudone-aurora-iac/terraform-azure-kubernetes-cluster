@@ -290,6 +290,7 @@ variable "default_node_pool" {
     vnet_subnet_id       = string
     vm_size              = optional(string, "Standard_D2s_v3")
     kubernetes_version   = optional(string, null)
+    os_sku               = optional(string, "Ubuntu")
     availability_zones   = optional(list(string), null)
     node_labels          = optional(map(string), {})
     node_taints          = optional(list(string), [])

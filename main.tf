@@ -154,6 +154,7 @@ resource "azurerm_kubernetes_cluster" "this" {
     temporary_name_for_rotation = "temporary"
     vnet_subnet_id              = var.default_node_pool.vnet_subnet_id
     orchestrator_version        = var.default_node_pool.kubernetes_version != null ? var.default_node_pool.kubernetes_version : var.kubernetes_version
+    os_sku                      = var.default_node_pool.os_sku
     zones                       = var.default_node_pool.availability_zones
 
     node_count           = !var.default_node_pool.enable_auto_scaling ? var.default_node_pool.node_count : null
