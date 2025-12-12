@@ -358,7 +358,7 @@ variable "oidc_issuer" {
   })
   default = {
     enabled                   = true
-    workload_identity_enabled = false
+    workload_identity_enabled = true
   }
 
   validation {

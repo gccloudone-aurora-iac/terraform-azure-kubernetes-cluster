@@ -94,4 +94,5 @@ Examples for this module along with various configurations can be found in the [
 | 2025-10-20 | v2.0.2  | Pin minimum version of azurerm to 4.49.0                                                                               |
 | 2025-10-20 | v2.0.3  | Add back VNET Network Integration since not out of preview                                                             |
 | 2025-10-28 | v2.0.4  | Change default for `sku_tier` to `Standard`                                                                            |
-| 2025-12-08 | v2.0.5  | Added support for `os_sku` to default node pool
+| 2025-12-08 | v2.0.5  | Added support for `os_sku` to default node pool                                                                        |
+| 2025-12-11 | v2.0.6  | Enabled workload identity 
