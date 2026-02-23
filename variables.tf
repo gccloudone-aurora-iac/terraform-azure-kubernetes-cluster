@@ -229,12 +229,17 @@ variable "network_plugin" {
 
 variable "network_policy" {
   description = "Network policy provider to use"
-  default     = "azure"
+  default     = "cilium"
 }
 
 variable "network_mode" {
   description = "Network mode to use"
   default     = "transparent"
+}
+
+variable "network_data_plane" {
+  description = "Network data plane to use"
+  default     = "cilium"
 }
 
 # Outbound Type
@@ -288,6 +293,7 @@ variable "default_node_pool" {
   type = object({
     name                 = optional(string, "system")
     vnet_subnet_id       = string
+    pod_subnet_id        = optional(string, null)
     vm_size              = optional(string, "Standard_D2s_v3")
     kubernetes_version   = optional(string, null)
     os_sku               = optional(string, "Ubuntu")
