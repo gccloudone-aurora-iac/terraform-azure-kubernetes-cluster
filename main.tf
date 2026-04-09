@@ -112,6 +112,15 @@ resource "azurerm_kubernetes_cluster" "this" {
     # if want to force the use of a firewall device
     outbound_type = var.outbound_type
 
+    # Advanced Networking
+    dynamic "advanced_networking" {
+      for_each = var.network_data_plane == "cilium" ? ["advanced_networking"] : []
+      content {
+        observability_enabled = true
+        security_enabled      = true
+      }
+    }
+
     # Load balancer
     load_balancer_sku = var.load_balancer.sku
 
