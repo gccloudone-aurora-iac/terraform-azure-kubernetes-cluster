@@ -223,23 +223,45 @@ variable "dns_service_ip" {
 
 # CNI
 variable "network_plugin" {
-  description = "Network plugin to use"
+  description = "AKS network plugin"
+  type        = string
   default     = "azure"
 }
 
-variable "network_policy" {
-  description = "Network policy provider to use"
-  default     = "cilium"
-}
-
 variable "network_mode" {
-  description = "Network mode to use"
+  description = "AKS network mode"
+  type        = string
   default     = "transparent"
 }
 
-variable "network_data_plane" {
-  description = "Network data plane to use"
+variable "network_policy" {
+  description = "AKS network policy"
+  type        = string
   default     = "cilium"
+  nullable    = true
+
+  validation {
+    condition = (
+      var.network_policy == null ||
+      contains(["azure", "cilium"], var.network_policy)
+    )
+    error_message = "network_policy must be one of: azure, cilium, or null."
+  }
+}
+
+variable "network_data_plane" {
+  description = "AKS network data plane"
+  type        = string
+  default     = "cilium"
+  nullable    = true
+
+  validation {
+    condition = (
+      var.network_data_plane == null ||
+      contains(["azure", "cilium"], var.network_data_plane)
+    )
+    error_message = "network_data_plane must be azure, cilium, or null."
+  }
 }
 
 # Outbound Type
