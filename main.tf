@@ -65,7 +65,7 @@ resource "azurerm_kubernetes_cluster" "this" {
   disk_encryption_set_id = var.disk_encryption_set_id
 
   # Components
-  azure_policy_enabled             = false
+  azure_policy_enabled             = var.azure_policy_enabled
   http_application_routing_enabled = false
 
   # Custom CA

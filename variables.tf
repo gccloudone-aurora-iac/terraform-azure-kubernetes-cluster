@@ -394,6 +394,12 @@ variable "auto_scaler_profile" {
 ### Addons ###
 ##############
 
+variable "azure_policy_enabled" {
+  description = "Flag to enable or disable Azure policy"
+  type        = bool
+  default     = false
+}
+
 variable "oidc_issuer" {
   description = "Enable or Disable the OIDC issuer URL and specifies whether Azure AD Workload Identity should be enabled for the Cluster"
   type = object({
