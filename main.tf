@@ -103,10 +103,10 @@ resource "azurerm_kubernetes_cluster" "this" {
 
   # Network configuration
   network_profile {
-    network_plugin      = var.network_plugin
-    network_policy      = var.network_policy
-    network_mode        = var.network_mode
-    network_data_plane  = var.network_data_plane
+    network_plugin     = var.network_plugin
+    network_policy     = var.network_policy
+    network_mode       = var.network_mode
+    network_data_plane = var.network_data_plane
 
     # Require the use of UserDefinedRouting
     # if want to force the use of a firewall device
