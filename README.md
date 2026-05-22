@@ -115,4 +115,6 @@ Examples for this module along with various configurations can be found in the [
 | 2025-10-20 | v2.0.3  | Add back VNET Network Integration since not out of preview                                                             |
 | 2025-10-28 | v2.0.4  | Change default for `sku_tier` to `Standard`                                                                            |
 | 2025-12-08 | v2.0.5  | Added support for `os_sku` to default node pool                                                                        |
-| 2025-12-11 | v2.0.6  | Enabled workload identity 
+| 2025-12-11 | v2.0.6  | Enabled workload identity                                                                                            |
+| 2026-04-13 | v2.0.7  | Switch default networking to Cilium with advanced networking. Add `azure_policy_enabled`, `network_data_plane`, `pod_subnet_id`, and network validations |
+| 2026-05-22 | v2.0.8  | Fix `custom_ca` to pass `null` instead of `[null]` when unset                                                          |
