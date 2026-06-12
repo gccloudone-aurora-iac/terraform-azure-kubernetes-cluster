@@ -72,7 +72,7 @@ variable "automatic_channel_upgrade" {
 variable "node_os_channel_upgrade" {
   description = "The upgrade channel for this Kubernetes Cluster Nodes' OS Image. Possible values are Unmanaged, SecurityPatch, NodeImage and None."
   type        = string
-  default     = null
+  default     = "SecurityPatch"
 }
 
 variable "maintenance_window" {
@@ -359,7 +359,7 @@ variable "default_node_pool" {
       node_soak_duration_in_minutes = 0
     })
 
-    enable_host_encryption = optional(bool, false)
+    enable_host_encryption = optional(bool, true)
     os_disk_size_gb        = optional(number, 256)
     os_disk_type           = optional(string, "managed")
   })
