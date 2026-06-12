@@ -400,7 +400,7 @@ variable "auto_scaler_profile" {
 variable "azure_policy_enabled" {
   description = "Flag to enable or disable Azure policy"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "oidc_issuer" {
