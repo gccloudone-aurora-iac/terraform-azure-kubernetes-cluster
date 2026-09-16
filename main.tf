@@ -161,6 +161,7 @@ resource "azurerm_kubernetes_cluster" "this" {
   # Configure the default node pool
   default_node_pool {
     name                        = var.default_node_pool.name
+    tags                        = local.tags
     temporary_name_for_rotation = "temporary"
     vnet_subnet_id              = var.default_node_pool.vnet_subnet_id
     pod_subnet_id               = var.default_node_pool.pod_subnet_id
